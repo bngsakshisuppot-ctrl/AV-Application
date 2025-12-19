@@ -1,0 +1,1 @@
+Upload all files to GitHub Pages or any hosting. Open login.html to start.

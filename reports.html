@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Reports (Admin Only)</h2>
+<div id="out"></div>
+
+<script src="config.js"></script>
+<script>
+if (getUser().role !== "Admin") {
+  out.innerHTML = "Access denied";
+} else {
+  fetch(API_URL + "?action=getAllRecords")
+    .then(r => r.json())
+    .then(d => {
+      out.innerHTML = "Total Records: " + d.data.length;
+    });
+}
+</script>
+</body>
+</html>
+<!-- Reports page code already shared -->

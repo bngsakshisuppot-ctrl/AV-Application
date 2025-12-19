@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<script>
+const API_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+function getUser() {
+  return JSON.parse(sessionStorage.getItem("user"));
+}
+
+function logout() {
+  sessionStorage.clear();
+  window.location.href = "login.html";
+}
+
+if (!getUser() && !location.pathname.includes("login")) {
+  window.location.href = "login.html";
+}
+</script>
+
+<script>
+function login() {
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "login",
+      username: username.value,
+      password: password.value
+    })
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.success) {
+      sessionStorage.setItem("user", JSON.stringify(d.user));
+      window.location.href = "dashboard.html";
+    } else {
+      alert("Invalid login");
+    }
+  });
+}
+</script>
+</body>
+</html>
